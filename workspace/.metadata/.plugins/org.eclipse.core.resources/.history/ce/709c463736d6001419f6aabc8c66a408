@@ -57,6 +57,10 @@ public class EinstellungsParser {
 		return filePrefix;
 	}
 
+	public BufferedReader getIn() {
+		return in;
+	}
+
 	public ArrayList<URL> getUrls() {
 		return urls;
 	}
