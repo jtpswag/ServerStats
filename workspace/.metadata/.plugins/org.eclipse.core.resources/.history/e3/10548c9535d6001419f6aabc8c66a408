@@ -23,7 +23,7 @@ public class Main {
 						+ "wait=30\n"
 						+ "\n"
 						+ "#Wo sollen die csv dateien hingeschrieben werden ($HOME ist das homeverzeichnis)\n"
-						+ "ort=$HOME\n";
+						+ "$HOME\n";
 				try {
 					BufferedWriter bf = new BufferedWriter(new FileWriter(args[1]));
 					bf.write(conf);
