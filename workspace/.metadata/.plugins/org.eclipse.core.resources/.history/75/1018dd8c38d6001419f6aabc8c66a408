@@ -85,7 +85,7 @@ public class Cli extends Thread {
 
 	private String help(){
 		String ret = "Verfügbare Kommandos:\n"
-				+ "use [url-nummer]:   Die für die Statistiken zu verwendende URL festlegen. Ohne Argument werden die verfügbaren URLs angezeigt.\n"
+				+ "use [url-nummer]:   Die für die Statistiken zu verwendende URL festlegen. Ohne Argument werden die verfügbaren URLs angezeigt."
 				+ "ges:                Die Anzahl aller Abfragen\n"
 				+ "count <HTTP-Code>:  Wie oft ein bestimmter HTTP-Code zurückkam\n"
 				+ "% <HTTP-Code>:      Die Häufigkeit eines bestimmten HTTP-Codes in Prozent\n"
@@ -198,8 +198,8 @@ public class Cli extends Thread {
 				} else {
 					ArrayList<URL> urls = einst.getUrls();
 					for (int i = 0; i<urls.size(); i++){
-						URL urll = urls.get(i);
-						System.out.println(i + ": " + urll.getHost());
+						urll = urls.get(i);
+						System.out.println(i + ": " + url.getHost());
 					}
 				}
 				break;

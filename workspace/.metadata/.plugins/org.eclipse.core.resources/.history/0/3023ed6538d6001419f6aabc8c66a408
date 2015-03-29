@@ -41,7 +41,7 @@ public class EinstellungsParser {
 					break;
 				case "ort":
 					if (zel[1].equals("$HOME")){
-						this.filePrefix = System.getProperty("user.home") + "/";
+						this.filePrefix = System.getProperty("user.home");
 					} else {
 						this.filePrefix = zel[1];
 					}
