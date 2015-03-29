@@ -1,0 +1,21 @@
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.ArrayList;
+
+public class EinstellungsParser {
+
+	private BufferedReader in;
+	private String[] urls;
+	private int wait;
+	
+	public EinstellungsParser(String datei) throws FileNotFoundException{
+		this.in = new BufferedReader(new FileReader(datei));
+		this.parse();
+	}
+	
+	private void parse(){
+		ArrayList<String> zeilen = new ArrayList<String>();
+		while 
+	}
+}

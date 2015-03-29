@@ -1,0 +1,10 @@
+
+public class Verwalter implements Runnable{
+	@Override
+	public void run() {
+		AnfrageThread anfth = new AnfrageThread("/home/jan/test.csv", "http://test.jugendtheaterprojekt.de/");
+		anfth.run();
+		AnfrageThread anfg = new AnfrageThread("/home/jan/testg.csv", "http://google.de");
+		anfg.run();
+	}
+}

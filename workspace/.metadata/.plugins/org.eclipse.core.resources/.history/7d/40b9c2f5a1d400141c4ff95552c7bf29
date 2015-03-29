@@ -1,0 +1,17 @@
+import java.util.ArrayList;
+
+
+public class Verwalter implements Runnable{
+	private ArrayList<AnfrageThread> threads;
+	
+	public Verwalter(){
+		this.threads = new ArrayList<AnfrageThread>();
+	}
+	
+	@Override
+	public void run() {
+		this.threads.add(new AnfrageThread("/home/jan/test.csv", "http://test.jugendtheaterprojekt.de/").run());
+		this.threads.add(new AnfrageThread("/home/jan/testg.csv", "http://google.de").run());
+		anfg.run();
+	}
+}

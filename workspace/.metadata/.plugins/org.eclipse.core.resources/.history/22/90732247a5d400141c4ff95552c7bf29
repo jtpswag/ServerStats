@@ -1,0 +1,16 @@
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import javax.net.ssl.HttpsURLConnection;
+
+
+public class Main {
+	
+	public static void main(String[] args){
+		new AnfrageThread("/home/jan/test.csv", "http://test.jugendtheaterprojekt.de/").start(9);
+		new AnfrageThread("/home/jan/testg.csv", "http://google.de/").start();
+		}
+
+}

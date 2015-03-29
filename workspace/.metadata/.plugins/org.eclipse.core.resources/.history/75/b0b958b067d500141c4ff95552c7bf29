@@ -1,0 +1,11 @@
+import java.io.BufferedReader;
+import java.io.File;
+
+
+public class EinstellungsParser {
+
+	private BufferedReader in;
+	private File datei;
+	private String[] urls;
+	private int wait;
+}

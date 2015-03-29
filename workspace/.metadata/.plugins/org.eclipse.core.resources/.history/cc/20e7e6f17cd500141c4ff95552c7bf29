@@ -1,0 +1,14 @@
+import java.io.File;
+
+public class Main {
+
+	public static void main(String[] args){
+		if (args.length > 0){
+			new Cli(new File(args[0])).start();
+		} else {
+			new Cli(new File("anfrage.conf")).start();
+		}
+
+	}
+
+}

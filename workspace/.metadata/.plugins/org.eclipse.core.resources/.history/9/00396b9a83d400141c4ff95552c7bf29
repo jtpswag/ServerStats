@@ -1,0 +1,14 @@
+import java.io.File;
+
+
+public class AnfrageThread extends Thread{
+	
+	private File datei;
+	public AnfrageThread(){
+		
+	}
+	
+	public void run(){
+		
+	}
+}

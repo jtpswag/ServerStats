@@ -1,0 +1,39 @@
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+
+
+public class Main {
+	
+	public static void main(String[] args){
+		HttpURLConnection http = null;
+		try {
+			HttpURLConnection http = new HttpURLConnection(new URL("jugendtheaterprojekt.de")) {
+				
+				@Override
+				public void connect() throws IOException {
+					// TODO Automatisch generierter Methodenstub
+					
+				}
+				
+				@Override
+				public boolean usingProxy() {
+					// TODO Automatisch generierter Methodenstub
+					return false;
+				}
+				
+				@Override
+				public void disconnect() {
+					// TODO Automatisch generierter Methodenstub
+					
+				}
+			};
+		} catch (MalformedURLException e) {
+			// TODO Automatisch generierter Erfassungsblock
+			e.printStackTrace();
+				
+		}
+		System.out.println(http.getResponseCode());
+	}
+}

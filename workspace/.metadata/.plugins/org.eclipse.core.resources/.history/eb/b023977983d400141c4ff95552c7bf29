@@ -1,0 +1,11 @@
+
+public class AnfrageThread extends Thread{
+
+	public AnfrageThread(){
+		
+	}
+	
+	public void run(){
+		
+	}
+}

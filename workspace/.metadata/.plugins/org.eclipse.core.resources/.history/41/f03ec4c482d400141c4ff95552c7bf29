@@ -1,0 +1,50 @@
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.GregorianCalendar;
+
+
+public class Anfrage {
+	HttpURLConnection http;
+	URL url;
+	GregorianCalendar start;
+	GregorianCalendar ende;
+	int diff;
+	int httpCode;
+	
+	public Anfrage(){
+		
+		try {
+			this.url = new URL("http://test.jugendtheaterprojekt.de/");
+			this.http = (HttpURLConnection) this.url.openConnection();
+		} catch (MalformedURLException e) {
+			// TODO Automatisch generierter Erfassungsblock
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Automatisch generierter Erfassungsblock
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void ausfuehren() {
+		//Startzeit
+		this.start = new GregorianCalendar();
+		try {
+			this.http.connect();
+		} catch (IOException e) {
+			// TODO Automatisch generierter Erfassungsblock
+			e.printStackTrace();
+		}
+		this.http.disconnect();
+		//Endzeit
+		this.ende = new GregorianCalendar();
+		try {
+			this.httpCode = this.http.getResponseCode();
+		} catch (IOException e) {
+			// TODO Automatisch generierter Erfassungsblock
+			e.printStackTrace();
+		}
+	}
+}

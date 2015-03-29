@@ -1,0 +1,8 @@
+import java.net.HttpURLConnection;
+
+
+public class Anfrage {
+	HttpURLConnection http;
+	URL url;
+	
+}

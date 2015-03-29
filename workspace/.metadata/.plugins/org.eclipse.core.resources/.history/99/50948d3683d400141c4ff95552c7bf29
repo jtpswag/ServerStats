@@ -1,0 +1,7 @@
+
+public class AnfrageThread extends Thread{
+
+	public AnfrageThread(){
+		
+	}
+}

@@ -1,0 +1,29 @@
+import java.io.File;
+
+public class Main {
+
+	public static void main(String[] args){
+		if (args[0].equals("-ws") && args[1] != null){
+			System.out.println("Die Standartkonfiguration wird nach " + args[1] + " geschrieben...");
+			String conf = "#Konfiguration für die Anfrage\n"
+					+ "# #: Kommentar\n"
+					+ "\n"
+					+ "#zu ueberpruefende urls (nur http!)\n"
+					+ "url=http://test.jugendtheaterprojekt.de/"
+					+ "url=http://google.de/"
+					+ "\n"
+					+ "#Wie lange soll zwischen den Anfragen gewartet werden"
+					+ "wait=30\n"
+					+ "\n"
+					+ "#Wo sollen die csv dateien hingeschrieben werden ($HOME ist das homeverzeichnis)\n"
+					+ "$HOME\n";
+			
+		}
+		if (args.length > 0){
+			new Cli(new File(args[0])).start();
+		} else {
+			new Cli(new File("anfrage.conf")).start();
+		}
+	}
+
+}

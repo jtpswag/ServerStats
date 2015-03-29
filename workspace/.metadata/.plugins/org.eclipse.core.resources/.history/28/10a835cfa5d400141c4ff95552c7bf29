@@ -1,0 +1,15 @@
+import java.util.ArrayList;
+
+
+public class Verwalter implements Runnable{
+	private ArrayList<AnfrageThread> threads;
+	
+	public Verwalter(){
+		this.threads = new ArrayList<AnfrageThread>();
+	}
+	
+	@Override
+	public void run() {
+		
+	}
+}

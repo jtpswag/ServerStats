@@ -1,0 +1,60 @@
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+
+public class EinstellungsParser {
+
+	private BufferedReader in;
+	private URL[] urls;
+	private int wait;
+	
+	public EinstellungsParser(File datei) throws FileNotFoundException{
+		this.in = new BufferedReader(new FileReader(datei));
+		this.parse();
+	}
+	
+	private void parse(){
+		ArrayList<String> zeilen = new ArrayList<String>();
+		try {
+			String zeile = null;
+			while ((zeile = this.in.readLine()) != null){
+				//Kommentare gar nicht erst in die ArrayList schreiben
+				if (!zeile.startsWith("#")){
+					zeilen.add(zeile);
+				}
+			}
+			for (String zl : zeilen){
+				ArrayList<URL> urls = new ArrayList<URL>();
+				String[] zel = zl.split("=");
+				switch (zel[0]){
+				case "url":
+					urls.add(new URL(zel[1]));
+					break;
+				case "wait":
+					this.wait = Integer.parseInt(zel[1]);
+					break;
+				}
+				
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public BufferedReader getIn() {
+		return in;
+	}
+
+	public URL[] getUrls() {
+		return urls;
+	}
+
+	public int getWait() {
+		return wait;
+	}
+	
+}

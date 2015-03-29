@@ -1,0 +1,26 @@
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import javax.net.ssl.HttpsURLConnection;
+
+
+public class Main {
+	
+	public static void main(String[] args){
+		HttpURLConnection http = null;
+		try {
+			http =  (HttpURLConnection) new URL("http://test.jugendtheaterprojekt.de").openConnection();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		try {
+			http.connect();
+			http.disconnect();
+			System.out.println(http.getResponseCode());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+}
