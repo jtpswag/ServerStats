@@ -13,8 +13,9 @@ public class EinstellungsParser {
 	private int wait;
 	private String filePrefix;
 	
-	public EinstellungsParser(File datei) throws FileNotFoundException{
+	public EinstellungsParser(File datei) throws FileNotFoundException {
 		this.in = new BufferedReader(new FileReader(datei));
+		this.urls = new ArrayList<URL>();
 		this.parse();
 	}
 	
@@ -33,8 +34,7 @@ public class EinstellungsParser {
 				String[] zel = zl.split("=");
 				switch (zel[0]){
 				case "url":
-					urls.add(new URL(zel[1]));
-					this.urls = urls;
+					this.urls.add(new URL(zel[1]));
 					break;
 				case "wait":
 					this.wait = Integer.parseInt(zel[1]);
@@ -46,7 +46,6 @@ public class EinstellungsParser {
 						this.filePrefix = zel[1];
 					}
 				}
-				
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -64,5 +63,4 @@ public class EinstellungsParser {
 	public int getWait() {
 		return wait;
 	}
-	
 }
