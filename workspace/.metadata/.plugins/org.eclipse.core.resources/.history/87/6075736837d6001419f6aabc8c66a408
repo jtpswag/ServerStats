@@ -108,7 +108,7 @@ public class Cli extends Thread {
 		}
 		return ges/this.anzAnfragen();
 	}
-
+	
 	private int minZeit(){
 		int zeit = this.maxZeit();
 		for (String[] st : this.lesen()){
@@ -128,7 +128,7 @@ public class Cli extends Thread {
 		}
 		return zeit;
 	}
-
+	
 	public void run(){
 		//Für die Einstellungen schauen, ob ein File übergeben wurde, ansonsten das Standart File
 		//nehmen
@@ -193,13 +193,16 @@ public class Cli extends Thread {
 				break;
 			case "use":
 				if (cmds.length > 1){
-					this.url = this.einst.getUrls().get(Integer.parseInt(cmds[1]));
-					System.out.println("benutze " + cmds[1]);
-				} else {
-					ArrayList<URL> urls = einst.getUrls();
-					for (int i = 0; i<urls.size(); i++){
-						System.out.println(i + ": " + url.getHost());
+					try {
+						this.url = new URL(cmds[1]);
+						System.out.println("benutze " + cmds[1]);
+					} catch (MalformedURLException e) {
+						System.out.println("Fehler: Falsches URL-Format");
+						e.printStackTrace();
 					}
+					
+				} else {
+					System.out.println(this.rtfm());
 				}
 				break;
 
