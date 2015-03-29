@@ -84,13 +84,11 @@ public class Cli extends Thread {
 	}
 
 	private String help(){
-		String ret = "Verfügbare Kommandos:\n"
-				+ "use [url-nummer]:   Die für die Statistiken zu verwendende URL festlegen. Ohne Argumente werden die verfügbaren URLs angezeigt."
-				+ "ges:                Die Anzahl aller Abfragen\n"
-				+ "count <HTTP-Code>:  Wie oft ein bestimmter HTTP-Code zurückkam\n"
-				+ "% <HTTP-Code>:      Die Häufigkeit eines bestimmten HTTP-Codes in Prozent\n"
-				+ "time <min|avg|max>: Statistiken zu Antwortzeiten anzeigen\n"
-				+ "help:               Diese Hilfe anzeigen";
+		String ret = "Verfügbare Kommandos:\n";
+		ret = ret + "ges:               Die Anzahl aller Abfragen\n";
+		ret = ret + "count <HTTP-Code>: Wie oft ein bestimmter HTTP-Code zurückkam\n";
+		ret = ret + "% <HTTP-Code>:     Die Häufigkeit eines bestimmten HTTP-Codes in Prozent\n";
+		ret = ret + "help:              Diese Hilfe anzeigen";
 		return ret;
 
 	}
