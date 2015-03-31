@@ -176,6 +176,19 @@ public class Cli extends Thread {
 	}
 
 	private int haeufigster(int nummer){
+		/*
+		ArrayList<Integer> prozente = new ArrayList<Integer>();
+		for (int i = 0; i<codes.size(); i++){
+			prozente.add(new Integer((int) this.proz(codes.get(i))));
+		}
+		int haeufigster = 0;
+		for (int i = 0; i<prozente.size(); i++){
+			if (prozente.get(i) > haeufigster){
+				haeufigster = prozente.get(i);
+			}
+		}
+		return codes.get(haeufigster);
+		 */
 		//Der Key ist der ablosute Häufigkeit des Codes, die Value ist der HTTP-Code
 		HashMap haufigkeit = new HashMap<Integer, Integer>();
 		ArrayList<Integer> haufigkeiten = new ArrayList<Integer>();
@@ -201,20 +214,36 @@ public class Cli extends Thread {
 				}
 			}
 		}
-		nummer = haufigkeiten.size()-nummer;
 		if (nummer > haufigkeiten.size()){
 			return (Integer) null;
 		} else {
 		return (int) haufigkeit.get(sortiert[nummer]);
 		}
 	}
-	
+	/*
+	private int haeufigster(){
+		return this.haeufigster(this.getCodes());
+	}
+
+	private int zweitHaeufigster(){
+		ArrayList<Integer> codes = this.getCodes();
+		codes.remove(new Integer(this.haeufigster()));
+		return this.haeufigster(codes);
+	}
+
+	private int drittHaeufigster(){
+		ArrayList<Integer> codes = this.getCodes();
+		codes.remove(new Integer(this.haeufigster()));
+		codes.remove(new Integer(this.zweitHaeufigster()));
+		return this.haeufigster(codes);
+	}
+	 */
 	private String info(){
-		String ret = "Die Anfragen laufen seit: " + new SimpleDateFormat("yyyy-mm-dd HH:mm").format(this.progStart.getTime()) + "\n"
-				+ "Insgesamt werden " + this.einst.getUrls().size() + " URLs in " + this.einst.getUrls().size() + " Threads abgefragt.\n"
+		String ret = "Die Anfragen laufen seit:" + new SimpleDateFormat("yyyy-mm-dd HH:mm:").format(this.progStart.getTime()) + "\n"
+				+ "Insgesamt werden " + this.einst.getUrls().size() + "URLs in " + this.einst.getUrls().size() + "Threads abgefragt.\n"
 				+ "Es existieren insgesamt " + this.anzAnfragen()*this.einst.getUrls().size() + " aufgezeichnete Anfragen.\n"
 				+ "Die Häufigste Antwort ist HTTP-Code: " + this.haeufigster(1) + "\n"
-				+ "Der Häufigste Fehler ist HTTP-Code: " + this.haeufigster(2);
+				+ "Der Häufigste Fehler ist HTTP-Code: " + this.haeufigster(2) + "\n";
 		//+ "Der zweithäufigste Fehler ist HTTP-Code: " + this.haeufigster(3);
 		return ret;
 	}

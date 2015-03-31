@@ -214,7 +214,7 @@ public class Cli extends Thread {
 				+ "Insgesamt werden " + this.einst.getUrls().size() + " URLs in " + this.einst.getUrls().size() + " Threads abgefragt.\n"
 				+ "Es existieren insgesamt " + this.anzAnfragen()*this.einst.getUrls().size() + " aufgezeichnete Anfragen.\n"
 				+ "Die Häufigste Antwort ist HTTP-Code: " + this.haeufigster(1) + "\n"
-				+ "Der Häufigste Fehler ist HTTP-Code: " + this.haeufigster(2);
+				+ "Der Häufigste Fehler ist HTTP-Code: " + this.haeufigster(2) + "\n";
 		//+ "Der zweithäufigste Fehler ist HTTP-Code: " + this.haeufigster(3);
 		return ret;
 	}

@@ -175,50 +175,52 @@ public class Cli extends Thread {
 		return codes;
 	}
 
-	private int haeufigster(int nummer){
-		//Der Key ist der ablosute Häufigkeit des Codes, die Value ist der HTTP-Code
-		HashMap haufigkeit = new HashMap<Integer, Integer>();
-		ArrayList<Integer> haufigkeiten = new ArrayList<Integer>();
-		//ArrayList mit den Codes durchgehen, und die jeweilige Häufigkeit als Value speichern
-		for (Integer in : this.getCodes()){
-			haufigkeit.put(new Integer(this.countCode(in)), in);
-			haufigkeiten.add(this.countCode(in));
+	private int haeufigster(ArrayList<Integer> codes){
+		/*
+		ArrayList<Integer> prozente = new ArrayList<Integer>();
+		for (int i = 0; i<codes.size(); i++){
+			prozente.add(new Integer((int) this.proz(codes.get(i))));
 		}
-
-		Integer[] sortiert =  new Integer[haufigkeiten.size()];
-		for (int i = 0; i<haufigkeiten.size(); i++){
-			sortiert[i] = haufigkeiten.get(i);
-		}
-		//ArrayList haufigkeiten sortieren
-		//Bubblesort, nich schön, aber selten (und einfach)
-		int temp;
-		for(int i=1; i<sortiert.length; i++) {
-			for(int j=0; j<sortiert.length-i; j++) {
-				if(sortiert[j]>sortiert[j+1]) {
-					temp=sortiert[j];
-					sortiert[j]=sortiert[j+1];
-					sortiert[j+1]=temp;
-				}
+		int haeufigster = 0;
+		for (int i = 0; i<prozente.size(); i++){
+			if (prozente.get(i) > haeufigster){
+				haeufigster = prozente.get(i);
 			}
 		}
-		nummer = haufigkeiten.size()-nummer;
-		if (nummer > haufigkeiten.size()){
-			return (Integer) null;
-		} else {
-		return (int) haufigkeit.get(sortiert[nummer]);
-		}
+		return codes.get(haeufigster);
+		*/
+		//Der Key ist der HTTP-Code, die Value ist die absolute Häufigkeit
+		HashMap prozente = new HashMap<Integer, Integer>();
+		
+	}
+	
+	private int haeufigster(){
+		return this.haeufigster(this.getCodes());
+	}
+	
+	private int zweitHaeufigster(){
+		ArrayList<Integer> codes = this.getCodes();
+		codes.remove(new Integer(this.haeufigster()));
+		return this.haeufigster(codes);
+	}
+	
+	private int drittHaeufigster(){
+		ArrayList<Integer> codes = this.getCodes();
+		codes.remove(new Integer(this.haeufigster()));
+		codes.remove(new Integer(this.zweitHaeufigster()));
+		return this.haeufigster(codes);
 	}
 	
 	private String info(){
-		String ret = "Die Anfragen laufen seit: " + new SimpleDateFormat("yyyy-mm-dd HH:mm").format(this.progStart.getTime()) + "\n"
-				+ "Insgesamt werden " + this.einst.getUrls().size() + " URLs in " + this.einst.getUrls().size() + " Threads abgefragt.\n"
-				+ "Es existieren insgesamt " + this.anzAnfragen()*this.einst.getUrls().size() + " aufgezeichnete Anfragen.\n"
-				+ "Die Häufigste Antwort ist HTTP-Code: " + this.haeufigster(1) + "\n"
-				+ "Der Häufigste Fehler ist HTTP-Code: " + this.haeufigster(2);
-		//+ "Der zweithäufigste Fehler ist HTTP-Code: " + this.haeufigster(3);
+		String ret = "Die Anfragen laufen seit:" + new SimpleDateFormat("yyyy-mm-dd HH:mm:").format(this.progStart.getTime()) + "\n"
+						+ "Insgesamt werden " + this.einst.getUrls().size() + "URLs in " + this.einst.getUrls().size() + "Threads abgefragt.\n"
+						+ "Es existieren insgesamt " + this.anzAnfragen()*this.einst.getUrls().size() + " aufgezeichnete Anfragen.\n"
+						+ "Die Häufigste Antwort ist HTTP-Code: " + this.haeufigster() + "\n"
+						+ "Der Häufigste Fehler ist HTTP-Code: " + this.zweitHaeufigster() + "\n"
+						+ "Der zweithäufigste Fehler ist HTTP-Code: " + this.drittHaeufigster();
 		return ret;
 	}
-
+	
 	public void run(){
 		//Für die Einstellungen schauen, ob ein File übergeben wurde, ansonsten das Standart File
 		//nehmen
@@ -265,7 +267,7 @@ public class Cli extends Thread {
 				break;
 			case "info":
 				if (this.url != null){
-					System.out.println(this.info());
+				System.out.println(this.info());
 				} else {
 					System.out.println("Fehler: keine URL angegeben.");
 					System.out.println("Führe \"use\" aus, um eine auszuwählen");

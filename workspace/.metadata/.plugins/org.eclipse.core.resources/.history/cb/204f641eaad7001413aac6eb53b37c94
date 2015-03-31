@@ -201,20 +201,19 @@ public class Cli extends Thread {
 				}
 			}
 		}
-		nummer = haufigkeiten.size()-nummer;
 		if (nummer > haufigkeiten.size()){
 			return (Integer) null;
 		} else {
-		return (int) haufigkeit.get(sortiert[nummer]);
+		return (int) haufigkeit.get(sortiert[nummer-1]);
 		}
 	}
 	
 	private String info(){
-		String ret = "Die Anfragen laufen seit: " + new SimpleDateFormat("yyyy-mm-dd HH:mm").format(this.progStart.getTime()) + "\n"
-				+ "Insgesamt werden " + this.einst.getUrls().size() + " URLs in " + this.einst.getUrls().size() + " Threads abgefragt.\n"
+		String ret = "Die Anfragen laufen seit:" + new SimpleDateFormat("yyyy-mm-dd HH:mm:").format(this.progStart.getTime()) + "\n"
+				+ "Insgesamt werden " + this.einst.getUrls().size() + "URLs in " + this.einst.getUrls().size() + "Threads abgefragt.\n"
 				+ "Es existieren insgesamt " + this.anzAnfragen()*this.einst.getUrls().size() + " aufgezeichnete Anfragen.\n"
 				+ "Die Häufigste Antwort ist HTTP-Code: " + this.haeufigster(1) + "\n"
-				+ "Der Häufigste Fehler ist HTTP-Code: " + this.haeufigster(2);
+				+ "Der Häufigste Fehler ist HTTP-Code: " + this.haeufigster(2) + "\n";
 		//+ "Der zweithäufigste Fehler ist HTTP-Code: " + this.haeufigster(3);
 		return ret;
 	}
