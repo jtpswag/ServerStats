@@ -175,7 +175,7 @@ public class Cli extends Thread {
 		return codes;
 	}
 
-	private int haeufigster(int nummer){
+	private Integer haeufigster(int nummer){
 		//Der Key ist der ablosute Häufigkeit des Codes, die Value ist der HTTP-Code
 		HashMap haufigkeit = new HashMap<Integer, Integer>();
 		ArrayList<Integer> haufigkeiten = new ArrayList<Integer>();
@@ -203,19 +203,23 @@ public class Cli extends Thread {
 		}
 		nummer = haufigkeiten.size()-nummer;
 		if (nummer > haufigkeiten.size()){
-			return (Integer) null;
+			return null;
 		} else {
-		return (int) haufigkeit.get(sortiert[nummer]);
+			return  new Integer((int) haufigkeit.get(sortiert[nummer]));
 		}
 	}
-	
+
 	private String info(){
 		String ret = "Die Anfragen laufen seit: " + new SimpleDateFormat("yyyy-mm-dd HH:mm").format(this.progStart.getTime()) + "\n"
 				+ "Insgesamt werden " + this.einst.getUrls().size() + " URLs in " + this.einst.getUrls().size() + " Threads abgefragt.\n"
 				+ "Es existieren insgesamt " + this.anzAnfragen()*this.einst.getUrls().size() + " aufgezeichnete Anfragen.\n"
-				+ "Die Häufigste Antwort ist HTTP-Code: " + this.haeufigster(1) + "\n"
-				+ "Der Häufigste Fehler ist HTTP-Code: " + this.haeufigster(2);
-		//+ "Der zweithäufigste Fehler ist HTTP-Code: " + this.haeufigster(3);
+				+ "Die Häufigste Antwort ist HTTP-Code: " + this.haeufigster(1) + "\n";
+		if (this.haeufigster(2) != null){
+			ret = ret + "Der Häufigste Fehler ist HTTP-Code: " + this.haeufigster(2);
+		}
+		if (this.haeufigster(3) != null){
+			ret = ret + "Der zweithäufigste Fehler ist HTTP-Code: " + this.haeufigster(3);
+		}
 		return ret;
 	}
 

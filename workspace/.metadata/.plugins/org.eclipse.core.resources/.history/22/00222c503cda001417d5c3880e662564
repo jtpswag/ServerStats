@@ -9,6 +9,7 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.Scanner;
 
 
@@ -95,6 +96,7 @@ public class Cli extends Thread {
 					+ "count <HTTP-Code>:  Wie oft ein bestimmter HTTP-Code zurückkam\n"
 					+ "% <HTTP-Code>:      Die Häufigkeit eines bestimmten HTTP-Codes in Prozent\n"
 					+ "time <min|avg|max>: Statistiken zu Antwortzeiten anzeigen\n"
+					+ "info:               Allgemeine Infos anzeigen\n"
 					+ "help [kommando]:    Diese Hilfe anzeigen";
 			return ret;
 		} else {
@@ -173,28 +175,53 @@ public class Cli extends Thread {
 		return codes;
 	}
 
-	private String info(){
-		String ret = "Die Anfragen laufen seit:" + new SimpleDateFormat("yyyy-mm-dd HH:mm:").format(this.progStart.getTime()) + "\n"
-						+ "Insgesamt werden " + this.einst.getUrls().size() + "URLs in " + this.einst.getUrls().size() + "Threads abgefragt.\n"
-						+ "Es existieren insgesamt " + this.anzAnfragen()*this.einst.getUrls().size() + " aufgezeichnete Anfragen.\n"
-						+ "Die Häufigste Antwort ist HTTP-Code: ";
-		ArrayList<Integer> codes = this.getCodes();
-		ArrayList<Integer> prozente = new ArrayList<Integer>();
-		for (int i = 0; i<codes.size(); i++){
-			prozente.add(new Integer((int) this.proz(codes.get(i))));
+	private Integer haeufigster(int nummer){
+		//Der Key ist der ablosute Häufigkeit des Codes, die Value ist der HTTP-Code
+		HashMap haufigkeit = new HashMap<Integer, Integer>();
+		ArrayList<Integer> haufigkeiten = new ArrayList<Integer>();
+		//ArrayList mit den Codes durchgehen, und die jeweilige Häufigkeit als Value speichern
+		for (Integer in : this.getCodes()){
+			haufigkeit.put(new Integer(this.countCode(in)), in);
+			haufigkeiten.add(this.countCode(in));
 		}
-		int haeufigster = 0;
-		for (int i = 0; i<prozente.size(); i++){
-			if (prozente.get(i) > haeufigster){
-				haeufigster = prozente.get(i);
+
+		Integer[] sortiert =  new Integer[haufigkeiten.size()];
+		for (int i = 0; i<haufigkeiten.size(); i++){
+			sortiert[i] = haufigkeiten.get(i);
+		}
+		//ArrayList haufigkeiten sortieren
+		//Bubblesort, nich schön, aber selten (und einfach)
+		int temp;
+		for(int i=1; i<sortiert.length; i++) {
+			for(int j=0; j<sortiert.length-i; j++) {
+				if(sortiert[j]>sortiert[j+1]) {
+					temp=sortiert[j];
+					sortiert[j]=sortiert[j+1];
+					sortiert[j+1]=temp;
+				}
 			}
 		}
-		ret = ret + codes.get(haeufigster) + "\n"
-				+ "Der Häufigste Fehler ist HTTP-Code: ";
-		codes.remove(codes.get(haeufigster));
-		
+		nummer = haufigkeiten.size()-nummer;
+		if (nummer > haufigkeiten.size()){
+			return null;
+		} else {
+		return  new Integer((int) haufigkeit.get(sortiert[nummer]));
+		}
 	}
 	
+	private String info(){
+		String ret = "Die Anfragen laufen seit: " + new SimpleDateFormat("yyyy-mm-dd HH:mm").format(this.progStart.getTime()) + "\n"
+				+ "Insgesamt werden " + this.einst.getUrls().size() + " URLs in " + this.einst.getUrls().size() + " Threads abgefragt.\n"
+				+ "Es existieren insgesamt " + this.anzAnfragen()*this.einst.getUrls().size() + " aufgezeichnete Anfragen.\n"
+				+ "Die Häufigste Antwort ist HTTP-Code: " + this.haeufigster(1) + "\n";
+		if (this.haeufigster(2) != null){
+			ret = ret + "Der Häufigste Fehler ist HTTP-Code: " + this.haeufigster(2);
+		}
+		if (this.haeufigster(3) != null){
+		ret = ret + "Der zweithäufigste Fehler ist HTTP-Code: " + this.haeufigster(3);
+		return ret;
+	}
+
 	public void run(){
 		//Für die Einstellungen schauen, ob ein File übergeben wurde, ansonsten das Standart File
 		//nehmen
@@ -239,6 +266,14 @@ public class Cli extends Thread {
 			case "ges":
 				System.out.println(this.anzAnfragen());
 				break;
+			case "info":
+				if (this.url != null){
+					System.out.println(this.info());
+				} else {
+					System.out.println("Fehler: keine URL angegeben.");
+					System.out.println("Führe \"use\" aus, um eine auszuwählen");
+				}
+				break;
 			case "codes":
 				for (Integer i : this.getCodes()){
 					System.out.println(i + ": " + this.countCode(i) + " mal");
@@ -275,7 +310,6 @@ public class Cli extends Thread {
 					} catch (NumberFormatException | IndexOutOfBoundsException e){
 						System.out.println("Fehler: Die Nummer gibts nich.");
 					}
-
 				} else {
 					ArrayList<URL> urls = einst.getUrls();
 					for (int i = 0; i<urls.size(); i++){
